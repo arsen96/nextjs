@@ -9,7 +9,7 @@ export const GET = async (req:Request) => {
     try{
         const res = await new MongoClient(process.env.MONGO_URI??"").connect()
     }catch(err){
-        let errorIs = {...err,test:"ba"}
+        let errorIs = {err,test:"ba"}
         return NextResponse.json(errorIs,{
             status:201
         })
