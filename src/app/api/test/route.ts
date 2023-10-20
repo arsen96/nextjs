@@ -10,7 +10,7 @@ export const GET = async (req:Request) => {
             status:201
         })
     }
-    const result = await APARTMENTS.find();
+    // const result = await APARTMENTS.find();
     return NextResponse.json(process.env.MONGO_URI,{
         status:201
     })
