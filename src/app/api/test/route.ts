@@ -10,8 +10,8 @@ export const GET = async (req:Request) => {
             status:201
         })
     }
-    // const result = await APARTMENTS.find();
-    let result = {res:"test"};
+    const result = await APARTMENTS.find();
+    // let result = {res:"test"};
     return NextResponse.json(result,{
         status:201
     })
