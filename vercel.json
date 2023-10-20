@@ -1,23 +1,8 @@
 {
     "version": 2,
-        "routes": {
-          "/api/test/route.ts": {
-            "methods": ["GET", "POST", "PUT", "DELETE"],
-            "src": "api/test/route.ts",
-            "dest": "/api/test/route.ts",
-            "headers": [
-              {
-                "source": "/api/test/route.ts",
-                "headers": [
-                  {
-                    "key": "cache-control",
-                    "value": "public, max-age=0, must-revalidate"
-                  }
-                ]
-              }
-            ],
-            "allow": ["GET", "POST", "PUT", "DELETE"],
-            "timeout": 30 
-          }
+    "functions": {
+        "pages/api/**/*.ts": {
+          "maxDuration": 10
         }
+      }
  }
