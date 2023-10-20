@@ -71,7 +71,7 @@ export default  function Home(){
   }
       useEffect(() => {
         getAirbnbs().then((result) => {
-          // setAirbnbs(result)
+          setAirbnbs(result)
         })
       }, []);
     
@@ -115,7 +115,7 @@ export default  function Home(){
               </tr>
             </thead>
             <tbody>
-              {airbnbs && airbnbs.map((item) => {
+              {airbnbs && Array.isArray(airbnbs) && airbnbs.map((item) => {
                 return (
                   <tr key={item._id}>
                     <td>{item._id}</td>
