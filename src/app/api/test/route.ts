@@ -3,6 +3,13 @@ import  connectMongo  from "../../../../lib/dbConnect"
 import  APARTMENTS from "../../../../lib/models/Test"
 import mongoose from 'mongoose';
 export const GET = async (req:Request) => {
+    const promise = new Promise<void>((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, 2000);
+    })
+
+    await promise
     // try{
     //     await mongoose.connect(process.env.MONGO_URI as any)
     // }catch(err){
@@ -10,7 +17,7 @@ export const GET = async (req:Request) => {
     //         status:201
     //     })
     // }
-    let test = {test:"testtt"}
+    let test = {test:"testttttt"}
     // const result = await APARTMENTS.find();
     return NextResponse.json(test,{
         status:201
