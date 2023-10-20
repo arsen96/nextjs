@@ -84,33 +84,39 @@ export default  function Home(){
       }, []);
     
   return (
+   
     <main className={styles.main}>
-      <div className="formData">
-        <Form  onClick={(e) => addAnnonce(e)}>
-          <h3>Ajouter une annonce</h3>
-        <Form.Group className="mb-3" controlId="formBasicTitle">
-          <Form.Control type="text" value={faker.lorem.sentence(3)} ref={titleForm}  placeholder="Titre" />
-        </Form.Group>
+       {session && session.user &&
+          <div className="formData">
+            <Form  onClick={(e) => addAnnonce(e)}>
+              <h3>Ajouter une annonce</h3>
+            <Form.Group className="mb-3" controlId="formBasicTitle">
+              <Form.Control type="text" value={faker.lorem.sentence(3)} ref={titleForm}  placeholder="Titre" />
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicCity">
-            <Form.Control type="text"  ref={cityForm} placeholder="Adresse" />
-        </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicCity">
+                <Form.Control type="text"  ref={cityForm} placeholder="Adresse" />
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPrice">
-            <Form.Control type="number" value={faker.number.int({min:100000,max:300000})} ref={priceForm} placeholder="Prix" />
-        </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPrice">
+                <Form.Control type="number" value={faker.number.int({min:100000,max:300000})} ref={priceForm} placeholder="Prix" />
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicDescription">
-            <Form.Control type="text" value={faker.lorem.sentence()}  ref={descForm} placeholder="description" />
-        </Form.Group>
-        <div className="btnContainer">
-        <Button variant="primary" className="formButton" type="submit">
-          Ajouter
-        </Button>
-        </div>
-      </Form>
-      </div>
-      
+            <Form.Group className="mb-3" controlId="formBasicDescription">
+                <Form.Control type="text" value={faker.lorem.sentence()}  ref={descForm} placeholder="description" />
+            </Form.Group>
+            <div className="btnContainer">
+            <Button variant="primary" className="formButton" type="submit">
+              Ajouter
+            </Button>
+            </div>
+          </Form>
+          </div>
+      }
+
+      {
+        !session || !session.user && <div className="notLoggedIn"><h1>Vous devez etre connecté pour ajouter les annonces</h1></div>
+      }
       <div className="getAirbnbs">
         <Table>
             <thead>
