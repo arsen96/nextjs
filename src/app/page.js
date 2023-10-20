@@ -115,7 +115,7 @@ export default  function Home(){
       }
 
       {
-        !session || !session.user && <div className="notLoggedIn"><h1>Vous devez etre connecté pour ajouter les annonces</h1></div>
+        !session || !session?.user && <div className="notLoggedIn"><h1>Vous devez etre connecté pour ajouter les annonces</h1></div>
       }
       <div className="getAirbnbs">
         <Table>
