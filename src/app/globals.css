@@ -100,8 +100,25 @@ a {
   text-decoration: none;
 }
 
+
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
 }
+
+.formData{
+  width: 48%;
+  margin: auto;
+}
+
+.getAirbnbs{
+  margin-top: 5%;
+}
+
+.btnContainer{
+  display: flex;
+  justify-content: center;
+}
+

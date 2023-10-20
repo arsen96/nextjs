@@ -1,0 +1,15 @@
+.detailsPage{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem;
+  }*
+  
+  .detailsPage form{
+    width: 50%;
+  }
+
+  .infoDatas{
+    display:flex;
+    flex-direction: column;
+  }

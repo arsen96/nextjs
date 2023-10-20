@@ -1,95 +1,142 @@
-import Image from 'next/image'
+'use client';
+import { faker } from '@faker-js/faker';
 import styles from './page.module.css'
+import { useState,useRef,useEffect} from 'react';
+import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
+import "./globals.css"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Link from 'next/link';
+import { redirect } from 'next/navigation'
+import { getSession, useSession } from 'next-auth/react';
 
-export default function Home() {
+
+const getAirbnbs = async () => {
+  const apiUrl = "http://localhost:3000/api";
+  const response = await fetch(`${apiUrl}/test`);
+  const data = await response.json();
+  return data
+}
+
+export default  function Home(){
+  const titleForm = useRef();
+  const cityForm = useRef();
+  const priceForm = useRef();
+  const descForm = useRef();
+  const [airbnbs,setAirbnbs] = useState([])
+  const {data:session} = useSession();
+
+  const addAnnonce = async(e) => {
+    e.preventDefault();
+    let title = titleForm.current.value;
+    let city = cityForm.current.value;
+    let price = priceForm.current.value;
+    let desc = descForm.current.value;
+    let geometryData = {}
+    const geocodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=AIzaSyBmzrfAtBj3pSQDMa1AG4dAmeP5cUBpziA`;
+    const geocodeResult = await fetch(geocodingUrl).then(result => result.json())
+     if(geocodeResult?.results?.length > 0){
+      geocodeResult.results.forEach(item => {
+        geometryData["lat"]= item.geometry.location.lat;
+        geometryData["long"]= item.geometry.location.lng;
+        geometryData["city"]= item.formatted_address;
+      });
+     }
+
+     if(Object.keys(geometryData)?.length > 0){
+      const formData = {
+        title: title,
+        city: geometryData.city,
+        price: price,
+        description: desc,
+        lat:geometryData.lat,
+        long:geometryData.long
+      }
+      const apiUrl = "http://localhost:3000/api";
+      fetch(`${apiUrl}/test`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }).then(async result => {
+        titleForm.current.value = " ";
+        cityForm.current.value = " ";
+        descForm.current.value = " ";
+        priceForm.current.value = " ";
+      });
+     }
+
+  }
+      useEffect(() => {
+        getAirbnbs().then((result) => {
+          // setAirbnbs(result)
+        })
+      }, []);
+    
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+      <div className="formData">
+        <Form  onClick={(e) => addAnnonce(e)}>
+          <h3>Ajouter une annonce</h3>
+        <Form.Group className="mb-3" controlId="formBasicTitle">
+          <Form.Control type="text" value={faker.lorem.sentence(3)} ref={titleForm}  placeholder="Titre" />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicCity">
+            <Form.Control type="text"  ref={cityForm} placeholder="Adresse" />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicPrice">
+            <Form.Control type="number" value={faker.number.int({min:100000,max:300000})} ref={priceForm} placeholder="Prix" />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicDescription">
+            <Form.Control type="text" value={faker.lorem.sentence()}  ref={descForm} placeholder="description" />
+        </Form.Group>
+        <div className="btnContainer">
+        <Button variant="primary" className="formButton" type="submit">
+          Ajouter
+        </Button>
         </div>
+      </Form>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      
+      <div className="getAirbnbs">
+        <Table>
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Title</th>
+                <th>city</th>
+                <th>Price</th>
+                <th>Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {airbnbs && airbnbs.map((item) => {
+                return (
+                  <tr key={item._id}>
+                    <td>{item._id}</td>
+                    <td>{item.title}</td>
+                    <td>{item.city}</td>
+                    <td>{item.price}€</td>
+                    <Button variant="warning">
+                      <Link
+                      href={{
+                        pathname: `details/${item._id}`
+                      }}
+                    >
+                      Voir
+                    </Link>
+                    </Button>
+                  </tr>
+                )
+              })}
+            </tbody>
+    </Table>
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+  </main>
   )
 }
