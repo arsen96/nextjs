@@ -21,9 +21,7 @@ const getAirbnbs = async () => {
     console.log("errerr",err)
   }
 
-  console.log("herree")
   const data = await response.json();
-  console.log("datadata",data)
   return data
 }
 
@@ -72,6 +70,9 @@ export default  function Home(){
         cityForm.current.value = " ";
         descForm.current.value = " ";
         priceForm.current.value = " ";
+        getAirbnbs().then((currentResult) => {
+          setAirbnbs(currentResult)
+        })
       });
      }
 
