@@ -3,14 +3,15 @@ import  connectMongo  from "../../../../lib/dbConnect"
 import  APARTMENTS from "../../../../lib/models/Test"
 
 export const GET = async (req:Request) => {
-    try{
-        await connectMongo();
-    }catch(err){
-        return NextResponse.json(err,{
-            status:201
-        })
-    }
-    const result = await APARTMENTS.find();
+    // try{
+    //     await connectMongo();
+    // }catch(err){
+    //     return NextResponse.json(err,{
+    //         status:201
+    //     })
+    // }
+    // const result = await APARTMENTS.find();
+    let result = {res:"test"};
     return NextResponse.json(result,{
         status:201
     })
