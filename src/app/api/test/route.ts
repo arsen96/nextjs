@@ -12,7 +12,7 @@ export const GET = async (req:Request) => {
             status:201
         })
     }
-    let test = {t:'yessssssssss'}
+    let test = {t:'yesssssssssss'}
     // const result = await APARTMENTS.find();
     return NextResponse.json(test,{
         status:201
