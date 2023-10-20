@@ -17,7 +17,7 @@ export const GET = async (req:Request) => {
 }
 
 export const POST = async (req:Request,res:Response) => {
-    return new Promise(async (resolve,reject) => {
+    return new Promise<any>(async (resolve,reject) => {
         try{
             await connectMongo();
         }catch(err){
