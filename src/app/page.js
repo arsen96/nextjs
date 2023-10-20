@@ -13,9 +13,17 @@ import { getSession, useSession } from 'next-auth/react';
 
 
 const getAirbnbs = async () => {
-  const apiUrl = "http://localhost:3000/api";
-  const response = await fetch(`${apiUrl}/test`);
+  let response;
+  try{
+    response = await fetch(`https://nextjs-eight-xi-78.vercel.app/api/test`);
+  console.log("response",response)
+  }catch(err){
+    console.log("errerr",err)
+  }
+
+  console.log("herree")
   const data = await response.json();
+  console.log("datadata",data)
   return data
 }
 
