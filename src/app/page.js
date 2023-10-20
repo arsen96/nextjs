@@ -118,7 +118,6 @@ export default  function Home(){
                 <th>Title</th>
                 <th>city</th>
                 <th>Price</th>
-                <th>Edit</th>
               </tr>
             </thead>
             <tbody>
@@ -129,15 +128,6 @@ export default  function Home(){
                     <td>{item.title}</td>
                     <td>{item.city}</td>
                     <td>{item.price}€</td>
-                    <Button variant="warning">
-                      <Link
-                      href={{
-                        pathname: `details/${item._id}`
-                      }}
-                    >
-                      Voir
-                    </Link>
-                    </Button>
                   </tr>
                 )
               })}
