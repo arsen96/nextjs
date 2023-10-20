@@ -32,7 +32,6 @@ export default  function Home(){
   const descForm = useRef();
   const [airbnbs,setAirbnbs] = useState([])
   const {data:session} = useSession();
-
   const addAnnonce = async(e) => {
     e.preventDefault();
     let title = titleForm.current.value;
@@ -86,6 +85,9 @@ export default  function Home(){
   return (
    
     <main className={styles.main}>
+      {
+        !session  && <div className="notLoggedIn"><h1>Vous devez etre connecté pour ajouter les annonces</h1></div>
+        }
        {session && session.user &&
           <div className="formData">
             <Form  onClick={(e) => addAnnonce(e)}>
@@ -112,11 +114,9 @@ export default  function Home(){
             </div>
           </Form>
           </div>
-      }
-
-      {
-        !session || !session?.user && <div className="notLoggedIn"><h1>Vous devez etre connecté pour ajouter les annonces</h1></div>
-      }
+     }
+     
+     
       <div className="getAirbnbs">
         <Table>
             <thead>
