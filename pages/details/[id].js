@@ -10,8 +10,7 @@ import Link from "next/link";
 
 const getCurrentApartment = async (id) => {
   if(id){
-    const apiUrl = "http://localhost:3000/api";
-    const response = await fetch(`${apiUrl}/test/${id}`);
+    const response = await fetch(`https://nextjs-eight-xi-78.vercel.app/api/${id}`);
     const data = await response.json();
     return data
   }

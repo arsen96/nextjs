@@ -61,8 +61,7 @@ export default  function Home(){
         lat:geometryData.lat,
         long:geometryData.long
       }
-      const apiUrl = "http://localhost:3000/api";
-      fetch(`${apiUrl}/test`, {
+      fetch(`https://nextjs-eight-xi-78.vercel.app/api/test`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
