@@ -3,13 +3,13 @@ import  connectMongo  from "../../../../lib/dbConnect"
 import  APARTMENTS from "../../../../lib/models/Test"
 import mongoose from 'mongoose';
 export const GET = async (req:Request) => {
-    try{
-        await mongoose.connect(process.env.MONGO_URI as any)
-    }catch(err){
-        return NextResponse.json(err,{
-            status:201
-        })
-    }
+    // try{
+    //     await mongoose.connect(process.env.MONGO_URI as any)
+    // }catch(err){
+    //     return NextResponse.json(err,{
+    //         status:201
+    //     })
+    // }
     let test = {test:"testtt"}
     // const result = await APARTMENTS.find();
     return NextResponse.json(test,{
