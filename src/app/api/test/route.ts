@@ -6,7 +6,7 @@ export const GET = async (req:Request) => {
     let mongoclient;
     const options = {}
     try{
-        await mongoose.connect(process.env.MONGO_URI as any)
+        await mongoose.connect(process.env.MONGODB_URI as any)
     }catch(err){
         return NextResponse.json(err,{
             status:201
