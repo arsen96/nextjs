@@ -4,14 +4,15 @@ import  APARTMENTS from "../../../../lib/models/Test"
 import mongoose from 'mongoose';
 export const GET = async (req:Request) => {
     const promise = new Promise<void>((resolve) => {
-        setTimeout(() => {
+        setTimeout(async () => {
+            await mongoose.connect(process.env.MONGO_URI as any)
             resolve();
-        }, 2000);
+        }, 1000);
     })
 
     await promise
     // try{
-    //     await mongoose.connect(process.env.MONGO_URI as any)
+    //     
     // }catch(err){
     //     return NextResponse.json(err,{
     //         status:201
