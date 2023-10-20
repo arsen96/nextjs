@@ -1,5 +1,4 @@
 {
-    "version": 1,
     "functions": {
         "pages/api/**/*.ts": {
           "maxDuration": 10
