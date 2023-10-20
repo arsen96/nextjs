@@ -4,15 +4,14 @@ import  APARTMENTS from "../../../../lib/models/Test"
 import mongoose from 'mongoose';
 export const GET = async (req:Request) => {
     try{
-        // await connectMongo();
-        await mongoose.connect(process.env.MONGO_URI as any)
+        // await mongoose.connect(process.env.MONGO_URI as any)
     }catch(err){
         return NextResponse.json(err,{
             status:201
         })
     }
     const result = await APARTMENTS.find();
-    return NextResponse.json(result,{
+    return NextResponse.json(process.env.MONGO_URI,{
         status:201
     })
 }
