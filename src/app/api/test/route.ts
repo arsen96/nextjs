@@ -1,24 +1,16 @@
 import { NextResponse } from "next/server"
 import  connectMongo  from "../../../../lib/dbConnect"
 import  APARTMENTS from "../../../../lib/models/Test"
-import mongoose from 'mongoose';
+import MongoClient from "mongoose"
 export const GET = async (req:Request) => {
-    const promise = new Promise<void>((resolve) => {
-        setTimeout(async () => {
-            await mongoose.connect(process.env.MONGO_URI as any)
-            resolve();
-        }, 1000);
-    })
-
-    await promise
-    // try{
-    //     
-    // }catch(err){
-    //     return NextResponse.json(err,{
-    //         status:201
-    //     })
-    // }
-    let test = {test:"testttttt"}
+    try{
+        await MongoClient.connect(process.env.MONGO_URI??"")
+    }catch(err){
+        return NextResponse.json(err,{
+            status:201
+        })
+    }
+    let test = {test:"testtt"}
     // const result = await APARTMENTS.find();
     return NextResponse.json(test,{
         status:201
