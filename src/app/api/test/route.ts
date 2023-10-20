@@ -2,12 +2,10 @@ import { NextResponse } from "next/server"
 import  connectMongo  from "../../../../lib/dbConnect"
 import  APARTMENTS from "../../../../lib/models/Test"
 import mongoose from "mongoose";
-const { MongoClient } = require('mongodb');
 export const GET = async (req:Request) => {
     let mongoclient;
-    const options = {}
     try{
-        await new MongoClient(process.env.MONGODB_URI??"").connect()
+        await connectMongo();
     }catch(err){
         return NextResponse.json(err,{
             status:201
